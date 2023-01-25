@@ -1,51 +1,45 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
- * argstostr - Concatenates all the arguments of your program.
- *
- * @ac: Number of arguments.
- * @av: Value of arguments.
- *
- * Return: If "ac == 0" or "av == NULL" or failure, return (0),
- *         Else, return a pointer to a new string.
+ * argstostr - A function that concatenates all arguments of your program
+ * @ac: number of arguments
+ * @av: array containing arguments
+ * Return: A pointer to string that containing all arguments
+ * or NULL if ac == 0, if av == NULL, or upon failure
  */
 
 char *argstostr(int ac, char **av)
 {
-	int i, j, c;
-	char *str;
+	char *new_str;
+	int len = 0, i = 0, j, k = 0;
 
-	c = 0;
+	if (ac <= 0 || av == NULL)
+		return (NULL);
 
-	if (ac == 0 || av == 0)
-		return (0);
-
-	for (i = 0; i < ac; i++)
+	for (; i < ac; i++)
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
-			c++;
-
-		c++;
+		for (j = 0; av[i][j]; j++)
+			len++;
+		len++;
 	}
 
-	str = malloc(sizeof(char) * (c + 1));
-
-	if (c == 0)
-		return (0);
-
-	c = 0;
+	len++;
+	new_str = malloc(len * sizeof(char));
+	if (new_str == NULL)
+		return (NULL);
 
 	for (i = 0; i < ac; i++)
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
+		for (j = 0; av[i][j]; j++)
 		{
-			str[c] = av[i][j];
-			c++;
+			new_str[k] = av[i][j];
+			k++;
 		}
-
-		str[c] = '\n';
-		c++;
+		new_str[k] = '\n';
+		k++;
 	}
-	str[c] = '\0';
-	return (str);
+
+	new_str[k] = '\0';
+	return (new_str);
 }

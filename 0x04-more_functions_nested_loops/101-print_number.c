@@ -1,39 +1,39 @@
 #include "main.h"
-void print_integer(int m);
 
 /**
- * print_number - a function that prints an integer.
- * @n: An input integer
+ * print_integer - A function to print an integer
+ * @m: An input integer
  * Return: Nothing
  */
-
-void print_number(int n)
+void print_integer(int m)
 {
+    int divisor = 1;
 
-	if (n == 0)
-		_putchar('0');
-	else if (n < 0)
-	{
-		_putchar('-');
-		print_integer(n * -1);
-	}
-	else
-		print_integer(n);
+    if (m < 0)
+    {
+        _putchar('-');
+        m = -m;
+    }
+
+    /* Find the divisor that represents the largest place value */
+    while (m / divisor >= 10)
+        divisor *= 10;
+
+    /* Print each digit */
+    while (divisor > 0)
+    {
+        _putchar((m / divisor) + '0');
+        m %= divisor;
+        divisor /= 10;
+    }
 }
 
 /**
- * print_integer - A function to priting n
- * @m: an input unsigned integer
- * Return: Nothing
+ * _putchar - A custom function to print a character
+ * @c: The character to be printed
+ * Return: On success, 1. On error, -1
  */
-
-void print_integer(int m)
+int _putchar(char c)
 {
-	int i = 1000000000;
-
-	for (; i >= 1; i /= 10)
-		if (m / i != 0)
-		{
-			_putchar((m / i) % 10 + '0');
-		}
+    return write(1, &c, 1);
 }

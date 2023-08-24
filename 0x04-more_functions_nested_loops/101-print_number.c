@@ -26,11 +26,23 @@ void print_number(int n)
  */
 void print_integer(int m)
 {
-	int i = 1000000000;
+	int i = 1;
 
-	for (; i >= 1; i /= 10)
-		if (m / i != 0)
-		{
-			_putchar((m / i) % 10 + '0');
-		}
+    if (m < 0)
+    {
+        _putchar('-');
+        m = -m;
+    }
+
+    /* Find the divisor that represents the largest place value */
+    while (m / divisor >= 10)
+        divisor *= 10;
+
+    /* Print each digit */
+    while (divisor > 0)
+    {
+        _putchar((m / divisor) + '0');
+        m %= divisor;
+        divisor /= 10;
+    }
 }
